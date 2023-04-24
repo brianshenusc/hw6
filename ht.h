@@ -317,7 +317,11 @@ HashTable<K,V,Prober,Hash,KEqual>::HashTable(
 template<typename K, typename V, typename Prober, typename Hash, typename KEqual>
 HashTable<K,V,Prober,Hash,KEqual>::~HashTable()
 {
-
+    for(size_t i = 0; i < table_.size(); i++) {
+        if(table_[i] != nullptr) {
+            delete table_[i];
+        }
+    }
 }
 
 // To be completed
@@ -358,8 +362,8 @@ void HashTable<K,V,Prober,Hash,KEqual>::insert(const ItemType& p)
 	}
 
 	if(table_[loc] == nullptr) {
-		HashItem* newItem = new HashItem(p);
-		table_[loc] = newItem;
+		// HashItem* newItem = new HashItem(p);
+		table_[loc] = new HashItem(p);
 		hash_size++;
 		num_notdeleted++;
 	}
